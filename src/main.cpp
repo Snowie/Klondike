@@ -327,6 +327,7 @@ int main()
 		}
 	}
 
+	//Clean up the deck
 	while(!deck.empty())
 	{
 		delete deck.top();
@@ -334,6 +335,7 @@ int main()
 		deck.pop();
 	}
 
+	//Clean up the discard
 	while(!discard.empty())
 	{
 		delete discard.back();
@@ -341,17 +343,19 @@ int main()
 		discard.pop_back();
 	}
 
+	//Clean up the tableau
 	for(unsigned int i = 0; i < tableau.size(); ++i)
 	{
+		//Clear the ith tableau
 		while(!tableau[i].empty())
 		{
 			delete tableau[i].back();
 			tableau[i].back() = nullptr;
 			tableau[i].pop_back();
 		}
-		tableau.erase(tableau.begin());
 	}
 
+	//Clean up the foundations
 	for(unsigned int i = 0; i < foundations.size(); ++i)
 	{
 		while(!foundations[i].empty())
@@ -360,7 +364,6 @@ int main()
 			foundations[i].back() = nullptr;
 			foundations[i].pop_back();
 		}
-		foundations.erase(foundations.begin());
 	}
 
 	return 0;
