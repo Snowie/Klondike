@@ -63,10 +63,10 @@ int Card::getHash() const
 
 std::string Card::toString() const
 {
-	//Nothing should be able to know. about face down cards.
+	//Nothing should be able to know about face down cards.
 	if(!getFaceUp())
 		return "Face down card";
-	
+
 	std::stringstream toRet;
 
 	if(number < 11 && number > 1)
