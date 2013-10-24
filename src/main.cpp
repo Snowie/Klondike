@@ -1,10 +1,14 @@
 #include <iostream>
+
+//For generateDeck()
 #include <random>
+#include <unordered_set>
+
+//For standard containers used through the program.
 #include <stack>
 #include <vector>
-#include <unordered_set>
-#include <string>
 #include <iterator>
+
 #include "../headers/card.h"
 
 using std::vector;
@@ -97,7 +101,6 @@ bool isLegalMove(vector<Card*>::iterator toGrab, vector<Card*> destination, bool
 	}
 
 	return true;
-
 }
 
 void mover (vector<Card*> * source, vector<Card*> * destination, vector<Card*>::iterator * toGrab, bool toFound)
@@ -165,6 +168,8 @@ void drawFromDeck(std::stack<Card*> *deck, vector <Card*> *discard)
 		discard->back()->setFaceUp(true);
 		deck->pop();
 	}
+	else
+		cout << "The deck is empty." endl;
 }
 
 void setupField(vector<vector<Card*>> * foundations, vector<vector<Card*>> * tableau, std::stack<Card*> * deck)
@@ -193,6 +198,7 @@ void setupField(vector<vector<Card*>> * foundations, vector<vector<Card*>> * tab
 						}
 					}
 				}
+				//Otherwise, continue putting it on the tableau
 				else
 				{
 					(*tableau)[j].push_back(deck->top());
@@ -217,7 +223,7 @@ int main()
 
 	//The four slots for aces
 	vector<vector<Card*>> foundations;
-	//The seven rows of cards
+	//The seven columns of cards
 	vector<vector<Card*>> tableau;
 
 	setupField(&foundations, &tableau, &deck);
@@ -261,7 +267,7 @@ int main()
 		//We are taking from a tableau
 		if(src.compare("tableau") == 0 || src.compare("Tableau") == 0)
 		{
-			
+			//How many cards does the user wish to move?
 			int numFromBack;
 			cout << "How many cards from the bottom should attempt to be grabbed?" << endl;
 			std::cin >> numFromBack;
