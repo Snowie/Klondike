@@ -124,6 +124,11 @@ void mover (vector<Card*> * source, vector<Card*> * destination, vector<Card*>::
 		cout << "Illegal Move" << endl;
 }
 
+void updateField(vector<vector<Card*>> * foundations, vector<vector<Card*>> * tableau, vector<Card*> * discard)
+{
+	//DO STUFF HERE
+}
+
 void printField(vector<vector<Card*>> foundations, vector<vector<Card*>> tableau, vector <Card*> discard)
 {
 	for(int i = 0; i < 4; ++i)
@@ -169,7 +174,7 @@ void drawFromDeck(std::stack<Card*> *deck, vector <Card*> *discard)
 		deck->pop();
 	}
 	else
-		cout << "The deck is empty." endl;
+		cout << "The deck is empty." << endl;
 }
 
 void setupField(vector<vector<Card*>> * foundations, vector<vector<Card*>> * tableau, std::stack<Card*> * deck)
@@ -213,6 +218,31 @@ void setupField(vector<vector<Card*>> * foundations, vector<vector<Card*>> * tab
 	for(int i = 0; i < 7; ++i)
 		(*tableau)[i].back()->setFaceUp(true);
 }
+sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+
+void displayField(std::stack<Card*> deck, vector<Card*> discard,vector<vector<Card*>> foundations, vector<vector<Card*>> tableau)
+{
+	window.display();
+
+	//Render top of deck
+	window.draw(deck.top()->toShape());
+
+	//Render top of discard
+	window.draw(discard.back()->toShape());
+
+	//Render Foundations
+	for(unsigned int i = 0; i < foundations.size(); ++i)
+		for(Card * c: foundations[i])
+			window.draw(c->toShape());
+
+	//Render tableau
+	for(unsigned int i = 0; i < tableau.size(); ++i)
+		for(Card * c: tableau[i])
+			window.draw(c->toShape());
+
+	window.clear(sf::Color::Black);
+	window.display();
+}
 
 int main()
 {
@@ -228,9 +258,18 @@ int main()
 
 	setupField(&foundations, &tableau, &deck);
 
-	while(true)
+	while(window.isOpen())
 	{
+		//displayField(deck, discard, foundations, tableau);
 		printField(foundations, tableau, discard);
+
+		sf::Event event;
+
+		while(window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed)
+				window.close();
+		}
 
 		std::string action;
 		cout << "What to do? (draw, move, quit)" << endl;
@@ -331,6 +370,7 @@ int main()
 			if(dst.compare("tableau") == 0 || dst.compare("Tableau") == 0)
 				mover(&(discard), &(tableau[destinationIndex]), &toGrab, false);
 		}
+		//updateField(&foundations, &tableau, &discard);
 	}
 
 	//Clean up the deck
