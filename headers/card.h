@@ -3,6 +3,7 @@
 #include <cmath>
 #include <string>
 #include <sstream>
+#include <SFML/Graphics.hpp>
 
 enum class Suit
 {
@@ -29,6 +30,12 @@ class Card
 		//Return a textual representation of our card
 		std::string toString() const;
 
+		//Return a visual representation of our card
+		sf::RectangleShape toShape() const;
+
+		//Set position
+		void update(double, double);
+
 		//Checks if two cards are equivalent
 		bool operator== (const Card &) const;
 
@@ -37,6 +44,8 @@ class Card
 	private:
 		Suit suit;
 		int number;
+		double x;
+		double y;
 		bool faceUp;
 };
 

@@ -95,3 +95,17 @@ bool Card::operator==(const Card & other) const
 			&& 
 			(this->getNumber() == other.getNumber());
 }
+
+//Return a visual representation of our card
+sf::RectangleShape Card::toShape() const
+{
+	sf::RectangleShape rect;
+	return rect;
+}
+
+//Set position
+void Card::update(double x, double y)
+{
+	this->x = x;
+	this->y = y;
+}
