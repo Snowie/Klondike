@@ -2,5 +2,5 @@ Requires C++11
 
 Compile with:
 
-g++ -Wall -g -Werror -std=c++11 '/home/samantha/Misc Code/Klondike/src/card.cpp' '/home/samantha/Misc Code/Klondike/src/main.cpp' -lsfml-graphics -lsfml-window -lsfml-system
+g++ -Wall -g -Werror -std=c++11 'src/card.cpp' 'src/main.cpp' -lsfml-graphics -lsfml-window -lsfml-system
 
